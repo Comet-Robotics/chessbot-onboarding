@@ -69,11 +69,11 @@ apiRouter.get("/game-state", (req, res) => {
 });
 
 apiRouter.post("/start-human-game", (req, res) => {
-    const side = req.query.pieceType as PieceType;
+    const pieceType = req.query.pieceType as PieceType;
     gameManager = new HumanGameManager(
         new GameEngine(),
         socketManager,
-        side,
+        pieceType,
         clientManager,
     );
     return res.send({ message: "success" });
