@@ -24,11 +24,11 @@ All of the links in this README are accessible any time via the Wiki.
 - Celebrate your successful admission to ChessBots :)
 
 ### Setup Guide
-A breif explanation of the setup follows below. It is **Extremely** reccommended to follow the full [Setup Guide](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Setup-Guide).  
+A brief explanation of the setup follows below. It is **Extremely** recommended to follow the full [Setup Guide](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Setup-Guide).  
 
 ### Completion Steps
 The full list of completion steps can be found [Here](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Completion-Steps).  
 It is recommended to read through the [Application Structure](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Application-Structure) if you want a high level overview of the various aspects in ths repo.  
 
 ### Submission Process
-A breif explanation of the submission process below. It is **Extremely** reccommended to follow the full [Submission Process](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Submission-Process).  
+A brief explanation of the submission process below. It is **Extremely** recommended to follow the full [Submission Process](https://github.com/Comet-Robotics/chessbot-onboarding/wiki/Submission-Process).  
