@@ -21,7 +21,7 @@ export class GameEngine {
     }
 
     place(placement: Placement): boolean {
-        if (this.game[placement.square] == undefined) {
+        if (this.game[placement.square] == PieceType.BLANK) {
             this.game[placement.square] = placement.pieceType;
             return true;
         } else {
@@ -35,16 +35,19 @@ export class GameEngine {
      * @returns true if the square has a piece on it.
      */
     hasPiece(square: number) {
-        return this.game[square] !== undefined;
+        return this.game[square] !== PieceType.BLANK;
     }
 
     /**
      * Places a piece on the tic-tac-toe board
      * @returns the move that was made.
      */
-    makePlacement(placement: Placement): Placement {
-        this.place(placement);
-        return placement;
+    makePlacement(placement: Placement): Placement | undefined {
+        if (this.place(placement)) {
+            return placement;
+        } else {
+            return undefined;
+        }
     }
 
     static oppositePiece(pieceType: PieceType): PieceType {
