@@ -1,5 +1,5 @@
 import { Message, SendMessage } from "../../common/message/message.ts";
-import { GameEngine, oppositePiece } from "../../common/game-engine.ts";
+import { GameEngine } from "../../common/game-engine.ts";
 import {
     GameInterruptedMessage,
     GameStartedMessage,
@@ -55,7 +55,7 @@ export abstract class GameManager {
         if (clientType === ClientType.HOST) {
             pieceType = this.hostPiece;
         } else {
-            pieceType = oppositePiece(this.hostPiece);
+            pieceType = GameEngine.oppositePiece(this.hostPiece);
         }
         return {
             pieceType,
