@@ -61,6 +61,3 @@ export class ClientManager {
     }
 }
 
-export function makeClientManager(socketManager: SocketManager): ClientManager {
-    return new ClientManager(socketManager);
-}
