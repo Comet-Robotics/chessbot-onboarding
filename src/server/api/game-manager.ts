@@ -55,7 +55,7 @@ export abstract class GameManager {
         if (clientType === ClientType.HOST) {
             pieceType = this.hostPiece;
         } else {
-            pieceType = GameEngine.oppositePiece(this.hostPiece);
+            pieceType = this.hostPiece
         }
         return {
             pieceType,
