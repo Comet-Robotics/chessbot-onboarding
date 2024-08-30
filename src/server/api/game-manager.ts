@@ -50,17 +50,18 @@ export abstract class GameManager {
      * A method which is invoked whenever a game first connects.
      * Should respond with the game's pieceType, board, and whether the game is finished.
      */
-    public getGameState(clientType: ClientType): object {
-        let pieceType: PieceType;
-        if (clientType === ClientType.HOST) {
-            pieceType = this.hostPiece;
-        } else {
-            pieceType = this.hostPiece
-        }
+    public getGameState(): object {
+        const pieceType: PieceType = this.hostPiece;
         return {
             pieceType,
             game: this.game,
             gameEndReason: this.getGameEndReason(),
+        };
+    }
+
+    public getBoardState(): object {
+        return {
+            game: this.game
         };
     }
 

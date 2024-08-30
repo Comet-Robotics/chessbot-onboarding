@@ -66,7 +66,15 @@ apiRouter.get("/game-state", (req, res) => {
         return res.status(400).send({ message: "No game is currently active" });
     }
     const clientType = clientManager.getClientType(req.cookies.id);
-    return res.status(200).send(gameManager.getGameState(clientType));
+    return res.status(200).send(gameManager.getGameState());
+});
+
+apiRouter.get("/board-state", (req, res) => {
+    if (gameManager === null) {
+        console.warn("Invalid attempt to fetch board state");
+        return res.status(400).send({ message: "No game is currently active" });
+    }
+    return res.status(200).send(gameManager.getBoardState());
 });
 
 apiRouter.post("/start-human-game", (req, res) => {
