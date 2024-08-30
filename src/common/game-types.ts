@@ -1,10 +1,10 @@
 /**
  * Defines a specific piece.
- * Values are defined to be consistent with the chess.js library.
  */
 export enum PieceType {
     X = "x",
-    O = "o"
+    O = "o",
+    BLANK = "blank"
 }
 
 export class Piece {
