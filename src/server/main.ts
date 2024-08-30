@@ -44,7 +44,7 @@ app.get("/", (_, res) => {
     return res.redirect("/home");
 });
 
-app.ws("/ws", websocketHandler);
+app.ws("/game-ws", websocketHandler);
 
 app.use("/api", apiRouter);
 

@@ -39,6 +39,7 @@ export const websocketHandler: WebsocketRequestHandler = (ws, req) => {
             message instanceof PlacementMessage
         ) {
             // TODO: Handle game manager not existing
+            console.error("Game manager not implemented");
             gameManager?.handleMessage(message, req.cookies.id);
         }
     });
@@ -65,7 +66,7 @@ apiRouter.get("/game-state", (req, res) => {
         return res.status(400).send({ message: "No game is currently active" });
     }
     const clientType = clientManager.getClientType(req.cookies.id);
-    return res.send(gameManager.getGameState(clientType));
+    return res.status(200).send(gameManager.getGameState(clientType));
 });
 
 apiRouter.post("/start-human-game", (req, res) => {
