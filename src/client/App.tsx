@@ -6,6 +6,8 @@ import { PieceType, Placement } from "../common/game-types";
 import { MessageType, RegisterWebsocketMessage } from "../common/message/message";
 import { GameEngine } from "../common/game-engine";
 import { PlacementMessage } from "../common/message/game-message";
+import { ClientType } from "../common/client-types";
+import { GameFinishedReason } from "../common/game-end-reasons";
 
 function useWebSocket() {
   const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
@@ -27,9 +29,94 @@ function useWebSocket() {
 }
 
 
+type ClientInfo = {
+  isGameActive: boolean;
+  clientType: ClientType;
+}
+
+type InitialGameState = {
+  pieceType: PieceType,
+  game: {
+    game: PieceType[],
+  },
+  gameEndReason: GameFinishedReason | undefined
+}
+
 function App() {
-  const [boardState, setBoardState] = useState<PieceType[]>(Array(9).fill(PieceType.BLANK))
-  const [player, setPlayer] = useState<PieceType>(PieceType.X);
+  const [clientInfo, setClientInfo] = useState<ClientInfo | null>(null);
+  const [initialGameState, setInitialGameState] = useState<InitialGameState | null>(null)
+  
+  const getInitialGameState = async () => {
+    const query = new URLSearchParams();
+    const res = await fetch("http://localhost:3000/api/game-state");
+    
+    const json = await res.json() as InitialGameState;
+    setInitialGameState(json);
+  }
+  
+  const startGame = async (pieceType: PieceType) => {
+    const query = new URLSearchParams();
+    query.set("pieceType", pieceType);
+    const startGameRes = await fetch("http://localhost:3000/api/start-human-game?" + query.toString() , {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    if (!startGameRes.ok) {
+      alert("Failed to start game");
+    }
+    
+    await getInitialGameState();
+  }
+  
+  
+  
+  useEffect(() => {
+    const run = async () => {
+      const res = await fetch("http://localhost:3000/api/client-information")
+      const json = await res.json() as ClientInfo;
+      setClientInfo(clientInfo)
+      
+      if (!json.isGameActive) {
+        const canCreateNewGame = json.clientType != ClientType.SPECTATOR
+        const shouldCreateNewGame = canCreateNewGame && confirm("No game is active - do you want to start a new game?");
+        if (shouldCreateNewGame) {
+          const pieceType = json.clientType === ClientType.HOST ? PieceType.X : PieceType.O;
+          await startGame(pieceType);
+        };
+      } else {
+        await getInitialGameState();
+      }
+    }
+      
+    run();
+  }, []);
+  
+  return (
+    <div className="App">
+      <h1>Tic Tac Toe</h1>
+      {
+        clientInfo === null ? <p>Loading...</p> : initialGameState !== null ? <TicTacToe initialPlayer={initialGameState.pieceType} initialBoardState={initialGameState.game.game} /> : <button type="button" onClick={async () => {
+          if (!clientInfo) {
+            alert("No client info");
+            return;
+          }
+          const pieceType = clientInfo.clientType === ClientType.HOST ? PieceType.X : PieceType.O;
+          await startGame(pieceType);
+        }}>
+          Start Game
+        </button>
+      }
+
+    </div>
+  )
+}
+
+function TicTacToe(props: {initialBoardState: PieceType[], initialPlayer: PieceType}) {
+  const {initialBoardState, initialPlayer} = props;
+  const [boardState, setBoardState] = useState<PieceType[]>(initialBoardState)
+  const [player, setPlayer] = useState<PieceType>(initialPlayer);
   const {webSocket} = useWebSocket();
   
   useEffect(() => {
@@ -62,8 +149,7 @@ function App() {
   }, [webSocket]);
   
   return (
-    <div className="App">
-      <h1>Tic Tac Toe</h1>
+    <>
       <p>Player: {player}</p>
       <div className="board-grid">
         {boardState.map((piece, pieceIndex) => {
@@ -89,8 +175,8 @@ function App() {
         })
       }
       </div>
-    </div>
-  );
+</>
+);
 }
 
 function BoardPieceComponent(props: {
