@@ -210,9 +210,9 @@ function TicTacToe(props: {
                 };
 
                 const newBoardState = structuredClone(boardState);
-                newBoardState[pieceIndex] = player;
+                newBoardState[pieceIndex] = localPlayer;
                 setBoardState(newBoardState);
-
+                
                 if (!webSocket) {
                   console.error("No websocket connection");
                   return;
