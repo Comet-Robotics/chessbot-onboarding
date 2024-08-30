@@ -125,7 +125,7 @@ export class GameEngine {
 
     isTie(): boolean {
         for (let i = 0; i < this.game.length; i++) {
-            if (this.game[i] == undefined) {
+            if (this.game[i] == PieceType.BLANK) {
                 return false;
             }
         }
