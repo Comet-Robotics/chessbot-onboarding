@@ -1,11 +1,11 @@
 import { GameFinishedReason } from "./game-end-reasons.ts";
-import { Piece, PieceType, Placement } from "./game-types.ts";
+import { PieceType, Placement } from "./game-types.ts";
 
 export class GameEngine {
-    private game: Piece[];
+    private game: PieceType[];
 
     constructor() {
-        this.game = new Array<Piece>;
+        this.game = Array(9).fill(PieceType.BLANK);
     }
 
     /**
@@ -22,7 +22,7 @@ export class GameEngine {
 
     place(placement: Placement): boolean {
         if (this.game[placement.square] == undefined) {
-            this.game[placement.square] = new Piece(placement.pieceType, placement.square);
+            this.game[placement.square] = placement.pieceType;
             return true;
         } else {
             return false;
@@ -47,31 +47,39 @@ export class GameEngine {
         return placement;
     }
 
+    oppositePiece(pieceType: PieceType): PieceType {
+        if (pieceType == PieceType.X) {
+            return PieceType.O;
+        } else {
+            return PieceType.X;
+        }
+    }
+
     isRowWin(pieceType: PieceType, offset: number): boolean {
-        const first = this.game[offset*3].pieceType == pieceType;
-        const second= this.game[1+(offset*3)].pieceType == pieceType;
-        const third = this.game[2+(offset*3)].pieceType == pieceType;
+        const first = this.game[offset*3] == pieceType;
+        const second= this.game[1+(offset*3)] == pieceType;
+        const third = this.game[2+(offset*3)] == pieceType;
         return first && second && third;
     }
 
     isColumnWin(pieceType: PieceType, offset: number): boolean {
-        const first = this.game[offset].pieceType == pieceType;
-        const second= this.game[3+offset].pieceType == pieceType;
-        const third = this.game[6+offset].pieceType == pieceType;
+        const first = this.game[offset] == pieceType;
+        const second= this.game[3+offset] == pieceType;
+        const third = this.game[6+offset] == pieceType;
         return first && second && third;
     }
 
     isDiagonalWin(pieceType: PieceType): boolean {
-        const first = this.game[0].pieceType == pieceType;
-        const second= this.game[4].pieceType == pieceType;
-        const third = this.game[8].pieceType == pieceType;
+        const first = this.game[0] == pieceType;
+        const second= this.game[4] == pieceType;
+        const third = this.game[8] == pieceType;
         return first && second && third;
     }
 
     isAntiDiagonalWin(pieceType: PieceType): boolean {
-        const first = this.game[2].pieceType == pieceType;
-        const second= this.game[4].pieceType == pieceType;
-        const third = this.game[6].pieceType == pieceType;
+        const first = this.game[2] == pieceType;
+        const second= this.game[4] == pieceType;
+        const third = this.game[6] == pieceType;
         return first && second && third;
     }
 

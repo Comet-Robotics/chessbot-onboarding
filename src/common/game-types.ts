@@ -7,13 +7,6 @@ export enum PieceType {
     BLANK = "blank"
 }
 
-export class Piece {
-    constructor(
-        public readonly pieceType: PieceType,
-        public square: Number
-    ) {}
-}
-
 export class Placement {
     constructor(
         public readonly pieceType: PieceType,
