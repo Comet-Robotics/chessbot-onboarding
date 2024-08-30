@@ -3,9 +3,7 @@
 
 The goal of this application is to introduce prospective members to the code structure and tools that are used when working on the ChessBots project.
 This repo is a simplified version of the ChessBots codebase. As you work on completing the application, you will be introduced to many concepts required for working on the main project.
-These concepts include but aren't limited to:
-- Programming Fundamentals
-- Networking and Server Fundamentals
+
 - API and Websocket Fundamentals
 - Typescript (Javascript)
 - React
