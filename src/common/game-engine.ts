@@ -8,18 +8,6 @@ export class GameEngine {
         this.game = Array(9).fill(PieceType.BLANK);
     }
 
-    /**
-     * Copies the chess engine, optionally with an extra move on the copy.
-     * @param move - A move to make.
-     */
-    copy(placement?: Placement): GameEngine {
-        const copy = new GameEngine();
-        if (placement !== undefined) {
-            copy.makePlacement(placement);
-        }
-        return copy;
-    }
-
     place(placement: Placement): boolean {
         if (this.game[placement.square] == PieceType.BLANK) {
             this.game[placement.square] = placement.pieceType;
@@ -36,18 +24,6 @@ export class GameEngine {
      */
     hasPiece(square: number) {
         return this.game[square] !== PieceType.BLANK;
-    }
-
-    /**
-     * Places a piece on the tic-tac-toe board
-     * @returns the move that was made.
-     */
-    makePlacement(placement: Placement): Placement | undefined {
-        if (this.place(placement)) {
-            return placement;
-        } else {
-            return undefined;
-        }
     }
 
     static oppositePiece(pieceType: PieceType): PieceType {

@@ -103,9 +103,7 @@ export class HumanGameManager extends GameManager {
         }
 
         if (message instanceof PlacementMessage) {
-            this.game.makePlacement(message.placement);
-            
-            if (this.game.makePlacement(message.placement) !== undefined) {
+            if (this.game.place(message.placement)) {
                 sendToOpponent(message);
             }
         } else if (message instanceof GameInterruptedMessage) {
