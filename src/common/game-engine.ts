@@ -47,7 +47,7 @@ export class GameEngine {
         return placement;
     }
 
-    oppositePiece(pieceType: PieceType): PieceType {
+    static oppositePiece(pieceType: PieceType): PieceType {
         if (pieceType == PieceType.X) {
             return PieceType.O;
         } else {
