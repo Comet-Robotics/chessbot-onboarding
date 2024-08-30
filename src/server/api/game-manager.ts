@@ -106,6 +106,7 @@ export class HumanGameManager extends GameManager {
             this.game.makePlacement(message.placement);
 
             sendToOpponent(message);
+            sendToPlayer(message);
         } else if (message instanceof GameInterruptedMessage) {
             this.gameInterruptedReason = message.reason;
             // propagate back to both sockets

@@ -24,6 +24,8 @@ export class ClientManager {
         const socket = this.getHostSocket();
         if (socket !== undefined) {
             socket.send(message.toJson());
+        } else {
+            console.log("Host socket undefined");
         }
         return socket !== undefined;
     }
@@ -32,6 +34,8 @@ export class ClientManager {
         const socket = this.getClientSocket();
         if (socket !== undefined) {
             socket.send(message.toJson());
+        } else {
+            console.log("Client socket undefined");
         }
         return socket !== undefined;
     }
@@ -55,8 +59,10 @@ export class ClientManager {
     public assignPlayer(id: string): void {
         if (this.hostId === undefined || id === this.hostId) {
             this.hostId = id;
+            console.log("Host Assigned");
         } else if (this.clientId === undefined || id === this.clientId) {
             this.clientId = id;
+            console.log("Client Assigned");
         }
     }
 }
