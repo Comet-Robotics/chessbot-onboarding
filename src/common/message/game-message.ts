@@ -1,6 +1,6 @@
-import { Message, MessageType } from "./message";
-import { PieceType, Placement } from "../game-types";
-import { GameInterruptedReason } from "../game-end-reasons";
+import { Message, MessageType } from "./message.ts";
+import { PieceType, Placement } from "../game-types.ts";
+import { GameInterruptedReason } from "../game-end-reasons.ts";
 
 export class BoardMessage extends Message {
     constructor(public readonly board: PieceType[]) {

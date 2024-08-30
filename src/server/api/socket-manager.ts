@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import { Message } from "../../common/message/message";
+import { Message } from "../../common/message/message.ts";
 
 /**
  * A class which maps client ids to their corresponding sockets (if any).

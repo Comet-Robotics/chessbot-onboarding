@@ -1,5 +1,5 @@
-import { GameFinishedReason } from "./game-end-reasons";
-import { Piece, PieceType, Placement } from "./game-types";
+import { GameFinishedReason } from "./game-end-reasons.ts";
+import { Piece, PieceType, Placement } from "./game-types.ts";
 
 export class GameEngine {
     private game: Piece[];

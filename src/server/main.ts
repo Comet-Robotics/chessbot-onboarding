@@ -2,9 +2,9 @@ import express, { RequestHandler, Express } from "express";
 import ViteExpress from "vite-express";
 import cookieParser from "cookie-parser";
 import { v4 as uuid } from "uuid";
-import { apiRouter, websocketHandler } from "./api/api";
+import { apiRouter, websocketHandler } from "./api/api.ts";
 import expressWebSocket from "express-ws";
-import { clientManager } from "./api/managers";
+import { clientManager } from "./api/managers.ts";
 
 const app = expressWebSocket(express()).app;
 

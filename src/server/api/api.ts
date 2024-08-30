@@ -1,20 +1,20 @@
 import { WebsocketRequestHandler } from "express-ws";
 import { Router } from "express";
 
-import { parseMessage } from "../../common/message/parse-message";
+import { parseMessage } from "../../common/message/parse-message.ts";
 import {
     GameInterruptedMessage,
     PlacementMessage,
-} from "../../common/message/game-message";
+} from "../../common/message/game-message.ts";
 
-import { RegisterWebsocketMessage } from "../../common/message/message";
-import { clientManager, socketManager } from "./managers";
+import { RegisterWebsocketMessage } from "../../common/message/message.ts";
+import { clientManager, socketManager } from "./managers.ts";
 import {
     GameManager,
     HumanGameManager,
-} from "./game-manager";
-import { PieceType } from "../../common/game-types";
-import { GameEngine } from "../../common/game-engine"
+} from "./game-manager.ts";
+import { PieceType } from "../../common/game-types.ts";
+import { GameEngine } from "../../common/game-engine.ts"
 
 export let gameManager: GameManager | null = null;
 

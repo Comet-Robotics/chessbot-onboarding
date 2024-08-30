@@ -1,7 +1,7 @@
 import { WebSocket } from "ws";
-import { SocketManager } from "./socket-manager";
-import { ClientType } from "../../common/client-types";
-import { Message } from "../../common/message/message";
+import { SocketManager } from "./socket-manager.ts";
+import { ClientType } from "../../common/client-types.ts";
+import { Message } from "../../common/message/message.ts";
 
 /**
  * A class which maps client ids to their corresponding sockets (if any).

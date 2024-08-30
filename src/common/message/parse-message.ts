@@ -1,10 +1,10 @@
-import { Message, MessageType, RegisterWebsocketMessage } from "./message";
+import { Message, MessageType, RegisterWebsocketMessage } from "./message.ts";
 import {
     GameInterruptedMessage,
     GameStartedMessage,
     BoardMessage,
     PlacementMessage,
-} from "./game-message";
+} from "./game-message.ts";
 
 /**
  * Parses sent messages into Message instances.
