@@ -1,5 +1,25 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "yarn": "^1.22.22"
+  },
+  "name": "chessbot-onboarding",
+  "description": "The goal of this application is to introduce prospective members to the code structure and tools that are used when working on the ChessBots project.\r This repo is a simplified version of the ChessBots codebase. As you work on completing the application, you will be introduced to many concepts required for working on the main project.\r These concepts include but aren't limited to:\r - Programming Fundamentals\r - Networking and Server Fundamentals\r - API and Websocket Fundamentals\r - Typescript (Javascript)\r - React",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.1",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.4"
   }
 }
