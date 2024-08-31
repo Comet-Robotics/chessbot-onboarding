@@ -15,6 +15,8 @@ import { GameFinishedReason } from "../common/game-end-reasons";
 function useWebSocket() {
   const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
+  // Use effect is a special react function. As far as I know, It basically gets run anytime the component
+  // it's attached to get re-rendered. In this case, whatever component calls the useWebSocket function
   useEffect(() => {
     const useSecure = window.location.protocol === "https:";
     const wsProtocol = useSecure ? "wss" : "ws";
@@ -61,11 +63,12 @@ function App() {
     setInitialGameState(json);
   };
 
+  // When this is run, a an api request is sent to the backend to start a game
   const startGame = async (pieceType: PieceType) => {
     const query = new URLSearchParams();
     query.set("pieceType", pieceType);
     const startGameRes = await fetch(
-      "/api/start-human-game?" + query.toString(),
+      "/api/start-game?" + query.toString(),
       {
         method: "POST",
         headers: {

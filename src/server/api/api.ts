@@ -1,18 +1,13 @@
 import { WebsocketRequestHandler } from "express-ws";
 import { Router } from "express";
-
 import { parseMessage } from "../../common/message/parse-message.ts";
 import {
     GameInterruptedMessage,
     PlacementMessage,
 } from "../../common/message/game-message.ts";
-
 import { RegisterWebsocketMessage } from "../../common/message/message.ts";
 import { clientManager, socketManager } from "./managers.ts";
-import {
-    GameManager,
-    HumanGameManager,
-} from "./game-manager.ts";
+import { GameManager } from "./game-manager.ts";
 import { PieceType } from "../../common/game-types.ts";
 import { GameEngine } from "../../common/game-engine.ts"
 
@@ -77,9 +72,9 @@ apiRouter.get("/board-state", (req, res) => {
     return res.status(200).send(gameManager.getBoardState());
 });
 
-apiRouter.post("/start-human-game", (req, res) => {
+apiRouter.post("/start-game", (req, res) => {
     const pieceType = req.query.pieceType as PieceType;
-    gameManager = new HumanGameManager(
+    gameManager = new GameManager(
         new GameEngine(),
         socketManager,
         pieceType,
