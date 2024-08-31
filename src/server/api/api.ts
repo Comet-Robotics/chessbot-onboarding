@@ -3,6 +3,7 @@ import { Router } from "express";
 import { parseMessage } from "../../common/message/parse-message.ts";
 import {
     GameInterruptedMessage,
+    GameStartedMessage,
     PlacementMessage,
 } from "../../common/message/game-message.ts";
 import { RegisterWebsocketMessage } from "../../common/message/message.ts";
@@ -78,5 +79,7 @@ apiRouter.post("/start-game", (req, res) => {
         hostPiece,
         clientManager,
     );
+    console.log("Start Game");
+    clientManager.sendToClient(new GameStartedMessage());
     return res.send({ message: "success" });
 });

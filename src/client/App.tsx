@@ -54,6 +54,7 @@ function App() {
   const [clientInfo, setClientInfo] = useState<ClientInfo | null>(null);
   const [initialGameState, setInitialGameState] =
     useState<InitialGameState | null>(null);
+  const { webSocket } = useWebSocket();
 
   const getInitialGameState = async () => {
     const query = new URLSearchParams();
@@ -109,6 +110,32 @@ function App() {
 
     run();
   }, [clientInfo]);
+
+  useEffect(() => {
+    if (!webSocket) {
+      return;
+    }
+
+    webSocket.onmessage = (event) => {
+      const parsedMessage = JSON.parse(event.data) as Record<string, any> & {
+        type?: MessageType;
+      };
+
+      if (!parsedMessage.type) {
+        console.error("Received message without type", parsedMessage);
+        return;
+      }
+
+      switch (parsedMessage.type) {
+        case MessageType.GAME_STARTED:
+          const run = async () => {
+            await getInitialGameState();
+          };
+      
+          run();
+      }
+    };
+  }, [webSocket]);
 
   return (
     <div className="App">
