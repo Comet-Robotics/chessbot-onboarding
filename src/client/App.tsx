@@ -176,7 +176,7 @@ function TicTacToe(props: {
       switch (parsedMessage.type) {
         case MessageType.PLACEMENT:
           const placementMsg = parsedMessage.placement as Placement;
-          const updatedBoardState = structuredClone(boardState);
+          const updatedBoardState = boardState;
           updatedBoardState[placementMsg.square] = placementMsg.pieceType;
           setBoardState(updatedBoardState);
           setPlayer(GameEngine.oppositePiece(placementMsg.pieceType));
@@ -209,7 +209,7 @@ function TicTacToe(props: {
                   square: pieceIndex,
                 };
 
-                const newBoardState = structuredClone(boardState);
+                const newBoardState = boardState;
                 newBoardState[pieceIndex] = localPlayer;
                 setBoardState(newBoardState);
                 
