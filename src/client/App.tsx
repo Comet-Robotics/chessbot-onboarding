@@ -126,13 +126,12 @@ function App() {
         return;
       }
 
-      switch (parsedMessage.type) {
-        case MessageType.GAME_STARTED:
-          const run = async () => {
-            await getInitialGameState();
-          };
-      
-          run();
+      if (parsedMessage.type == MessageType.GAME_STARTED) {
+        const run = async () => {
+          await getInitialGameState();
+        };
+    
+        run();
       }
     };
   }, [webSocket]);
@@ -152,6 +151,7 @@ function App() {
               : PieceType.O
           }
           spectating={clientInfo.clientType === ClientType.SPECTATOR}
+          webSocket={webSocket}
         />
       ) : clientInfo.clientType !== ClientType.HOST ? (
         <p>
@@ -182,11 +182,11 @@ function TicTacToe(props: {
   initialPlayer: PieceType;
   localPlayer: PieceType;
   spectating: boolean;
+  webSocket: WebSocket | null;
 }) {
-  const { initialBoardState, initialPlayer, localPlayer, spectating } = props;
+  const { initialBoardState, initialPlayer, localPlayer, spectating, webSocket } = props;
   const [boardState, setBoardState] = useState<PieceType[]>(initialBoardState);
   const [player, setPlayer] = useState<PieceType>(initialPlayer);
-  const { webSocket } = useWebSocket();
 
   useEffect(() => {
     if (!webSocket) {
@@ -203,17 +203,12 @@ function TicTacToe(props: {
         return;
       }
 
-      switch (parsedMessage.type) {
-        case MessageType.PLACEMENT:
-          const placementMsg = parsedMessage.placement as Placement;
-          const updatedBoardState = boardState;
-          updatedBoardState[placementMsg.square] = placementMsg.pieceType;
-          setBoardState(updatedBoardState);
-          setPlayer(GameEngine.oppositePiece(placementMsg.pieceType));
-          break;
-        default:
-          console.error("Received unknown message type", parsedMessage);
-          break;
+      if (parsedMessage.type == MessageType.PLACEMENT) {
+        const placementMsg = parsedMessage.placement as Placement;
+        const updatedBoardState = boardState;
+        updatedBoardState[placementMsg.square] = placementMsg.pieceType;
+        setBoardState(updatedBoardState);
+        setPlayer(GameEngine.oppositePiece(placementMsg.pieceType));
       }
     };
   }, [webSocket]);
