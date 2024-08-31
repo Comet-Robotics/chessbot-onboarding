@@ -59,10 +59,8 @@ export class ClientManager {
     public assignPlayer(id: string): void {
         if (this.hostId === undefined || id === this.hostId) {
             this.hostId = id;
-            console.log("Host Assigned");
         } else if (this.clientId === undefined || id === this.clientId) {
             this.clientId = id;
-            console.log("Client Assigned");
         }
     }
 }
