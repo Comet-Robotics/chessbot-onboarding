@@ -43,9 +43,9 @@ type ClientInfo = {
 };
 
 type InitialGameState = {
-  pieceType: PieceType;
+  hostPiece: PieceType;
   game: {
-    game: PieceType[];
+    board: PieceType[];
   };
   gameEndReason: GameFinishedReason | undefined;
 };
@@ -64,9 +64,9 @@ function App() {
   };
 
   // When this is run, a an api request is sent to the backend to start a game
-  const startGame = async (pieceType: PieceType) => {
+  const startGame = async (hostPiece: PieceType) => {
     const query = new URLSearchParams();
-    query.set("pieceType", pieceType);
+    query.set("hostPiece", hostPiece);
     const startGameRes = await fetch(
       "/api/start-game?" + query.toString(),
       {
@@ -117,8 +117,8 @@ function App() {
         <p>Loading...</p>
       ) : initialGameState !== null ? (
         <TicTacToe
-          initialPlayer={initialGameState.pieceType}
-          initialBoardState={initialGameState.game.game}
+          initialPlayer={initialGameState.hostPiece}
+          initialBoardState={initialGameState.game.board}
           localPlayer={
             clientInfo.clientType === ClientType.HOST
               ? PieceType.X
@@ -139,8 +139,8 @@ function App() {
               alert("No client info");
               return;
             }
-            const pieceType = PieceType.X;
-            await startGame(pieceType);
+            const hostPiece = PieceType.X;
+            await startGame(hostPiece);
           }}
         >
           Start Game

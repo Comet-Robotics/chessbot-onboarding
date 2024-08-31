@@ -33,9 +33,7 @@ export const websocketHandler: WebsocketRequestHandler = (ws, req) => {
             message instanceof GameInterruptedMessage ||
             message instanceof PlacementMessage
         ) {
-            // TODO: Handle game manager not existing
-            console.error("Game manager not implemented");
-            gameManager?.handleMessage(message, req.cookies.id);
+            if (gameManager !== null) gameManager?.handleMessage(message, req.cookies.id);
         }
     });
 };
@@ -55,16 +53,16 @@ apiRouter.get("/client-information", (req, res) => {
     });
 });
 
-apiRouter.get("/game-state", (req, res) => {
+//
+apiRouter.get("/game-state", (_, res) => {
     if (gameManager === null) {
         console.warn("Invalid attempt to fetch game state");
         return res.status(400).send({ message: "No game is currently active" });
     }
-    const clientType = clientManager.getClientType(req.cookies.id);
     return res.status(200).send(gameManager.getGameState());
 });
 
-apiRouter.get("/board-state", (req, res) => {
+apiRouter.get("/board-state", (_, res) => {
     if (gameManager === null) {
         console.warn("Invalid attempt to fetch board state");
         return res.status(400).send({ message: "No game is currently active" });
@@ -73,11 +71,11 @@ apiRouter.get("/board-state", (req, res) => {
 });
 
 apiRouter.post("/start-game", (req, res) => {
-    const pieceType = req.query.pieceType as PieceType;
+    const hostPiece = req.query.hostPiece as PieceType;
     gameManager = new GameManager(
         new GameEngine(),
         socketManager,
-        pieceType,
+        hostPiece,
         clientManager,
     );
     return res.send({ message: "success" });

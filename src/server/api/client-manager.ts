@@ -4,7 +4,7 @@ import { ClientType } from "../../common/client-types.ts";
 import { Message } from "../../common/message/message.ts";
 
 /**
- * A class which maps client ids to their corresponding sockets (if any).
+ * A class which handles communication between clients
  */
 export class ClientManager {
     constructor(

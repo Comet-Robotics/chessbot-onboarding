@@ -44,12 +44,12 @@ export class GameManager {
 
     /**
      * A method which is invoked whenever a game first connects.
-     * Should respond with the game's pieceType, board, and whether the game is finished.
+     * Should respond with the what piece the host is playing, the game object, and whether the game is finished.
      */
     public getGameState(): object {
-        const pieceType: PieceType = this.hostPiece;
+        const hostPiece: PieceType = this.hostPiece;
         return {
-            pieceType,
+            hostPiece,
             game: this.game,
             gameEndReason: this.getGameEndReason(),
         };
