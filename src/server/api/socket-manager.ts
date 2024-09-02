@@ -26,7 +26,9 @@ export class SocketManager {
     public sendToSocket(id: string, message: Message): boolean {
         const socket = this.getSocket(id);
         if (socket !== undefined) {
-            socket.send(message.toJson());
+            const json = message.toJson()
+            socket.send(json);
+            console.log("Sent message to socket id", id, json)
             return true;
         }
         return false;

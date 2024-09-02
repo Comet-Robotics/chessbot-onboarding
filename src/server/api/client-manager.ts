@@ -23,7 +23,9 @@ export class ClientManager {
     public sendToHost(message: Message): boolean {
         const socket = this.getHostSocket();
         if (socket !== undefined) {
-            socket.send(message.toJson());
+            const json = message.toJson();
+            socket.send(json);
+            console.log("Sent to host socket: " + json);
         } else {
             console.log("Host socket undefined");
         }
@@ -33,7 +35,9 @@ export class ClientManager {
     public sendToClient(message: Message): boolean {
         const socket = this.getClientSocket();
         if (socket !== undefined) {
-            socket.send(message.toJson());
+            const json = message.toJson();
+            socket.send(json);
+            console.log("Sent to client socket: " + json);
         } else {
             console.log("Client socket undefined");
         }
