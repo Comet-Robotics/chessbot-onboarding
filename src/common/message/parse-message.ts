@@ -1,10 +1,12 @@
-import { Message, MessageType, RegisterWebsocketMessage } from "./message.ts";
+import { MessageType } from "./message-types.ts";
 import {
+    Message,
+    RegisterWebsocketMessage,
     GameInterruptedMessage,
     GameStartedMessage,
-    BoardMessage,
+    GameEndedMessage,
     PlacementMessage,
-} from "./game-message.ts";
+} from "./messages.ts";
 
 /**
  * Parses sent messages into Message instances.
@@ -22,8 +24,8 @@ export function parseMessage(text: string): Message {
             return new GameStartedMessage();
         case MessageType.GAME_INTERRUPTED:
             return new GameInterruptedMessage(obj.reason);
-        case MessageType.BOARD:
-            return new BoardMessage(obj.board);
+        case MessageType.GAME_ENDED:
+            return new GameEndedMessage();
         case MessageType.PLACEMENT:
             return new PlacementMessage(obj.placement);
     }

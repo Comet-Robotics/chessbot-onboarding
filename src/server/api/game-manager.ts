@@ -1,10 +1,11 @@
-import { Message, SendMessage } from "../../common/message/message.ts";
 import { GameEngine } from "../../common/game-engine.ts";
 import {
+    Message,
+    SendMessage,
     GameInterruptedMessage,
     GameStartedMessage,
     PlacementMessage,
-} from "../../common/message/game-message.ts";
+} from "../../common/message/messages.ts";
 import { SocketManager } from "./socket-manager.ts";
 import { ClientManager } from "./client-manager.ts";
 import { ClientType } from "../../common/client-types.ts"

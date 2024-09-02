@@ -1,7 +1,7 @@
 import { WebSocket } from "ws";
 import { SocketManager } from "./socket-manager.ts";
 import { ClientType } from "../../common/client-types.ts";
-import { Message } from "../../common/message/message.ts";
+import { Message } from "../../common/message/messages.ts";
 
 /**
  * A class which handles communication between clients

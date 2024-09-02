@@ -1,17 +1,28 @@
-import { Message, MessageType } from "./message.ts";
-import { PieceType, Placement } from "../game-types.ts";
+import { MessageType } from "./message-types.ts";
+import { Placement } from "../game-types.ts";
 import { GameInterruptedReason } from "../game-end-reasons.ts";
 
-export class BoardMessage extends Message {
-    constructor(public readonly board: PieceType[]) {
-        super();
+export abstract class Message {
+    /**
+     * Serializes the message as json.
+     */
+    public toJson(): string {
+        return JSON.stringify(this.toObj());
     }
 
-    protected type = MessageType.BOARD;
+    protected abstract type: MessageType;
 
+    /**
+     * Sends this class to an object which can be serialized as json.
+     * The only usage of this method is by `toJson`.
+     */
     protected toObj(): object {
-        return { ...super.toObj(), board: this.board };
+        return { type: this.type };
     }
+}
+
+export class RegisterWebsocketMessage extends Message {
+    protected type = MessageType.REGISTER_WEBSOCKET;
 }
 
 export class PlacementMessage extends Message {
@@ -36,6 +47,14 @@ export class GameStartedMessage extends Message {
     protected type = MessageType.GAME_STARTED;
 }
 
+export class GameEndedMessage extends Message {
+    constructor() {
+        super();
+    }
+
+    protected type = MessageType.GAME_ENDED;
+}
+
 export class GameInterruptedMessage extends Message {
     constructor(public readonly reason: GameInterruptedReason) {
         super();
@@ -50,3 +69,9 @@ export class GameInterruptedMessage extends Message {
         };
     }
 }
+
+
+/**
+ * A function which can be used to send a message somewhere.
+ */
+export type SendMessage = (message: Message) => void;

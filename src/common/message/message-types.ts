@@ -14,11 +14,6 @@ export enum MessageType {
      */
     REGISTER_WEBSOCKET = "register-websocket",
     /**
-     * A server-client message defining the current state of a game.
-     * Used to allow clients to reconnect.
-     */
-    BOARD = "board",
-    /**
      * A two-way message containing a single placement.
      */
     PLACEMENT = "placement",
@@ -27,42 +22,13 @@ export enum MessageType {
      */
     GAME_STARTED = "game-started",
     /**
+     * A server-client message used to tell both players a game has ended.
+     */
+    GAME_ENDED = "game-started",
+    /**
      * A two-way message indicating a game has been interrupted.
      *
      * Note this does not include the game ending as a part of the normal flow of moves.
      */
     GAME_INTERRUPTED = "game-interrupted",
 }
-
-export abstract class Message {
-    /**
-     * Serializes the message as json.
-     */
-    public toJson(): string {
-        return JSON.stringify(this.toObj());
-    }
-
-    protected abstract type: MessageType;
-
-    /**
-     * Sends this class to an object which can be serialized as json.
-     * The only usage of this method is by `toJson`.
-     */
-    protected toObj(): object {
-        return { type: this.type };
-    }
-}
-
-export class RegisterWebsocketMessage extends Message {
-    protected type = MessageType.REGISTER_WEBSOCKET;
-}
-
-/**
- * A function which can be used to send a message somewhere.
- */
-export type SendMessage = (message: Message) => void;
-
-/**
- * A function which receives messages and should do stuff with them.
- */
-export type MessageHandler = (message: Message) => void;

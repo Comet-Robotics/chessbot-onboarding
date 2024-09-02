@@ -2,11 +2,11 @@ import { WebsocketRequestHandler } from "express-ws";
 import { Router } from "express";
 import { parseMessage } from "../../common/message/parse-message.ts";
 import {
+    RegisterWebsocketMessage,
     GameInterruptedMessage,
     GameStartedMessage,
     PlacementMessage,
-} from "../../common/message/game-message.ts";
-import { RegisterWebsocketMessage } from "../../common/message/message.ts";
+} from "../../common/message/messages.ts";
 import { clientManager, socketManager } from "./managers.ts";
 import { GameManager } from "./game-manager.ts";
 import { PieceType } from "../../common/game-types.ts";

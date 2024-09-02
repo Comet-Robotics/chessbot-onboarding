@@ -3,12 +3,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 
 import { PieceType, Placement } from "../common/game-types";
-import {
-  MessageType,
-  RegisterWebsocketMessage,
-} from "../common/message/message";
+import { MessageType } from "../common/message/message-types";
 import { GameEngine } from "../common/game-engine";
-import { PlacementMessage } from "../common/message/game-message";
+import {
+  PlacementMessage,
+  RegisterWebsocketMessage
+} from "../common/message/messages";
 import { ClientType } from "../common/client-types";
 import { GameFinishedReason } from "../common/game-end-reasons";
 
