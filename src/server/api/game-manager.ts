@@ -84,6 +84,10 @@ export class GameManager {
         }
 
         if (message instanceof PlacementMessage) {
+            if (this.game.getGameFinishedReason()) {
+              console.log("Not sending placement message because game is finished.", message.toJson())
+              return;
+            }
             if (this.game.place(message.placement)) {
                 sendToOpponent(message);
                 const gameFinishedReason = this.game.getGameFinishedReason();
