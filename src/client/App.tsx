@@ -6,6 +6,7 @@ import { PieceType, Placement } from "../common/game-types";
 import { MessageType } from "../common/message/message-types";
 import { GameEngine } from "../common/game-engine";
 import {
+  GameFinishedMessage,
   PlacementMessage,
   RegisterWebsocketMessage,
 } from "../common/message/messages";
@@ -18,8 +19,8 @@ function useWebSocket() {
   // Use effect is a special react function. As far as I know, It basically gets run anytime the component
   // it's attached to get re-rendered. In this case, whatever component calls the useWebSocket function
   useEffect(() => {
-    const useSecure = window.location.protocol === "https:";
-    const wsProtocol = useSecure ? "wss" : "ws";
+    const useSecureWebSocket = window.location.protocol === "https:";
+    const wsProtocol = useSecureWebSocket ? "wss" : "ws";
     const ws = new WebSocket(
       wsProtocol + "://" + window.location.host + "/game-ws"
     );
@@ -184,13 +185,24 @@ function App() {
   );
 }
 
-function TicTacToe(props: {
+type TicTacToeProps = {
+  // Represents the initial board positions when the component is mounted. Used to initialize local state hooks which are updated in real-time as the game progresses via the WebSocket.
   initialBoardState: PieceType[];
+  
+  // Represents the player that is playing when the component is mounted. Used to initialize local state hooks which are updated in real-time as the game progresses via the WebSocket.
   currentPlayer: PieceType;
+  
+  // Represents the piece that the local player is playing as.
   localPlayer: PieceType;
+  
+  // Specifies whether the current client is spectating the game. If the client is spectating, they cannot make moves so buttons are disabled.
   spectating: boolean;
+  
+  // A reference to the WebSocket connection used for sending and receiving game updates in real-time.
   webSocket: WebSocket | null;
-}) {
+};
+
+function TicTacToe(props: TicTacToeProps) {
   const { initialBoardState, currentPlayer, localPlayer, spectating, webSocket } = props;
   const [boardState, setBoardState] = useState<PieceType[]>(initialBoardState);
   const [player, setPlayer] = useState<PieceType>(currentPlayer);
