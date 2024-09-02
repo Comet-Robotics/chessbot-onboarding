@@ -5,13 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -w src/server -x tsx src/server/main.ts",
-    "start": "cross-env NODE_ENV=production tsx src/server/main.ts",
     "build": "vite build"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
-    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-ws": "^5.0.2",
     "react": "^18.2.0",
