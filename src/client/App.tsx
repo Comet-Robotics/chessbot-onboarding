@@ -184,6 +184,7 @@ function App() {
           }
           spectating={clientInfo.clientType === ClientType.SPECTATOR}
           webSocket={webSocket}
+          gameEnded={gameEndReason !== null}
         />
       ) : clientInfo.clientType !== ClientType.HOST ? (
         <p>
