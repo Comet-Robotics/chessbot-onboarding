@@ -1,6 +1,6 @@
 import { MessageType } from "./message-types.ts";
 import { Placement } from "../game-types.ts";
-import { GameInterruptedReason } from "../game-end-reasons.ts";
+import { GameFinishedReason, GameInterruptedReason } from "../game-end-reasons.ts";
 
 export abstract class Message {
     /**
@@ -47,12 +47,19 @@ export class GameStartedMessage extends Message {
     protected type = MessageType.GAME_STARTED;
 }
 
-export class GameEndedMessage extends Message {
-    constructor() {
+export class GameFinishedMessage extends Message {
+    constructor(public readonly reason: GameFinishedReason) {
         super();
     }
 
-    protected type = MessageType.GAME_ENDED;
+    protected type = MessageType.GAME_FINISHED;
+
+    protected toObj(): object {
+        return {
+            ...super.toObj(),
+            reason: this.reason,
+        };
+    }
 }
 
 export class GameInterruptedMessage extends Message {

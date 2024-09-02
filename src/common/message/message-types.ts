@@ -22,9 +22,9 @@ export enum MessageType {
      */
     GAME_STARTED = "game-started",
     /**
-     * A server-client message used to tell both players a game has ended.
+     * A server-client message used to tell both players a game has finished due to normal flow.
      */
-    GAME_ENDED = "game-started",
+    GAME_FINISHED = "game-finished",
     /**
      * A two-way message indicating a game has been interrupted.
      *

@@ -79,7 +79,6 @@ apiRouter.post("/start-game", (req, res) => {
         hostPiece,
         clientManager,
     );
-    console.log("Start Game");
     clientManager.sendToClient(new GameStartedMessage());
     return res.send({ message: "success" });
 });

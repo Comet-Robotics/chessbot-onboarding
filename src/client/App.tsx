@@ -7,7 +7,7 @@ import { MessageType } from "../common/message/message-types";
 import { GameEngine } from "../common/game-engine";
 import {
   PlacementMessage,
-  RegisterWebsocketMessage
+  RegisterWebsocketMessage,
 } from "../common/message/messages";
 import { ClientType } from "../common/client-types";
 import { GameFinishedReason } from "../common/game-end-reasons";
@@ -132,6 +132,8 @@ function App() {
         };
     
         run();
+      } else if (parsedMessage.type == MessageType.GAME_FINISHED) {
+        alert(parsedMessage.reason);
       }
     };
   }, [webSocket]);

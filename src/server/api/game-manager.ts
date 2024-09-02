@@ -5,6 +5,7 @@ import {
     GameInterruptedMessage,
     GameStartedMessage,
     PlacementMessage,
+    GameFinishedMessage,
 } from "../../common/message/messages.ts";
 import { SocketManager } from "./socket-manager.ts";
 import { ClientManager } from "./client-manager.ts";
@@ -85,6 +86,12 @@ export class GameManager {
         if (message instanceof PlacementMessage) {
             if (this.game.place(message.placement)) {
                 sendToOpponent(message);
+                const gameFinishedReason = this.game.getGameFinishedReason();
+                if (gameFinishedReason) {
+                    const gameFinishedMessage = new GameFinishedMessage(gameFinishedReason);
+                    sendToPlayer(gameFinishedMessage);
+                    sendToOpponent(gameFinishedMessage);
+                }
             }
         } else if (message instanceof GameInterruptedMessage) {
             this.gameInterruptedReason = message.reason;

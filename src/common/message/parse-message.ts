@@ -4,7 +4,7 @@ import {
     RegisterWebsocketMessage,
     GameInterruptedMessage,
     GameStartedMessage,
-    GameEndedMessage,
+    GameFinishedMessage,
     PlacementMessage,
 } from "./messages.ts";
 
@@ -24,8 +24,8 @@ export function parseMessage(text: string): Message {
             return new GameStartedMessage();
         case MessageType.GAME_INTERRUPTED:
             return new GameInterruptedMessage(obj.reason);
-        case MessageType.GAME_ENDED:
-            return new GameEndedMessage();
+        case MessageType.GAME_FINISHED:
+            return new GameFinishedMessage(obj.reason);
         case MessageType.PLACEMENT:
             return new PlacementMessage(obj.placement);
     }
