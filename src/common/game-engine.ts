@@ -3,14 +3,17 @@ import { PieceType, Placement } from "./game-types.ts";
 
 export class GameEngine {
     private board: PieceType[];
+    private currentTurn: PieceType;
 
-    constructor() {
+    constructor(startingPiece: PieceType) {
         this.board = Array(9).fill(PieceType.BLANK);
+        this.currentTurn = startingPiece;
     }
 
     place(placement: Placement): boolean {
         if (this.board[placement.square] == PieceType.BLANK) {
             this.board[placement.square] = placement.pieceType;
+            this.currentTurn = GameEngine.oppositePiece(this.currentTurn);
             return true;
         } else {
             return false;

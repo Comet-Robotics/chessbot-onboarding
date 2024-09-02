@@ -46,6 +46,7 @@ type InitialGameState = {
   hostPiece: PieceType;
   game: {
     board: PieceType[];
+    currentTurn: PieceType;
   };
   gameEndReason: GameFinishedReason | undefined;
 };
@@ -145,7 +146,7 @@ function App() {
         <p>Loading...</p>
       ) : initialGameState !== null ? (
         <TicTacToe
-          initialPlayer={initialGameState.hostPiece}
+          currentPlayer={initialGameState.game.currentTurn}
           initialBoardState={initialGameState.game.board}
           localPlayer={
             clientInfo.clientType === ClientType.HOST
@@ -181,14 +182,14 @@ function App() {
 
 function TicTacToe(props: {
   initialBoardState: PieceType[];
-  initialPlayer: PieceType;
+  currentPlayer: PieceType;
   localPlayer: PieceType;
   spectating: boolean;
   webSocket: WebSocket | null;
 }) {
-  const { initialBoardState, initialPlayer, localPlayer, spectating, webSocket } = props;
+  const { initialBoardState, currentPlayer, localPlayer, spectating, webSocket } = props;
   const [boardState, setBoardState] = useState<PieceType[]>(initialBoardState);
-  const [player, setPlayer] = useState<PieceType>(initialPlayer);
+  const [player, setPlayer] = useState<PieceType>(currentPlayer);
 
   useEffect(() => {
     if (!webSocket) {

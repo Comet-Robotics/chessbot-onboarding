@@ -71,7 +71,7 @@ apiRouter.get("/board-state", (_, res) => {
 apiRouter.post("/start-game", (req, res) => {
     const hostPiece = req.query.hostPiece as PieceType;
     gameManager = new GameManager(
-        new GameEngine(),
+        new GameEngine(hostPiece),
         socketManager,
         hostPiece,
         clientManager,
