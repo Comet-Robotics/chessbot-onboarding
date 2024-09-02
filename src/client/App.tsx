@@ -116,8 +116,7 @@ function App() {
     if (!webSocket) {
       return;
     }
-
-    webSocket.onmessage = (event) => {
+    const listener = (event: MessageEvent) => {
       const parsedMessage = JSON.parse(event.data) as Record<string, any> & {
         type?: MessageType;
       };
@@ -136,7 +135,12 @@ function App() {
       } else if (parsedMessage.type == MessageType.GAME_FINISHED) {
         alert(parsedMessage.reason);
       }
-    };
+    }
+    
+    webSocket.addEventListener('message', listener)
+    return () => {
+      webSocket.removeEventListener('message', listener)
+    }
   }, [webSocket]);
 
   return (
@@ -195,8 +199,8 @@ function TicTacToe(props: {
     if (!webSocket) {
       return;
     }
-
-    webSocket.onmessage = (event) => {
+    
+    const listener = (event: MessageEvent) => {
       const parsedMessage = JSON.parse(event.data) as Record<string, any> & {
         type?: MessageType;
       };
@@ -212,8 +216,13 @@ function TicTacToe(props: {
         updatedBoardState[placementMsg.square] = placementMsg.pieceType;
         setBoardState(updatedBoardState);
         setPlayer(GameEngine.oppositePiece(placementMsg.pieceType));
-      }
-    };
+      } 
+    }
+    
+    webSocket.addEventListener('message', listener)
+    return () => {
+      webSocket.removeEventListener('message', listener)
+    }
   }, [webSocket]);
 
   return (
@@ -223,8 +232,8 @@ function TicTacToe(props: {
       <div className="board-grid">
         {boardState.map((piece, pieceIndex) => {
           return (
-            <BoardPieceComponent
-              key={`piece-${pieceIndex}`}
+            <BoardTile
+              key={`tile-${pieceIndex}`}
               piece={piece}
               disabled={
                 spectating ||
