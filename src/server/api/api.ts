@@ -20,16 +20,17 @@ export let gameManager: GameManager | null = null;
  * The websocket is used to stream messages to and from the client.
  */
 export const websocketHandler: WebsocketRequestHandler = (ws, req) => {
+    const sessionId = req.cookies.id;  
     ws.on("close", () => {
-        socketManager.handleSocketClosed(req.cookies.id);
+        socketManager.handleSocketClosed(sessionId);
     });
 
     ws.on("message", (data) => {
         const message = parseMessage(data.toString());
-        console.log("Received message: " + message.toJson());
+        console.log("Received message from socket ID", sessionId + ":", message.toJson());
 
         if (message instanceof RegisterWebsocketMessage) {
-            socketManager.registerSocket(req.cookies.id, ws);
+            socketManager.registerSocket(sessionId, ws);
         } else if (
             message instanceof GameInterruptedMessage ||
             message instanceof PlacementMessage
