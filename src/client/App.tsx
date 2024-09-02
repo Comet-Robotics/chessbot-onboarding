@@ -267,7 +267,7 @@ function TicTacToe(props: {
   );
 }
 
-function BoardPieceComponent(props: {
+function BoardTile(props: {
   piece: PieceType;
   onClick: () => void;
   disabled: boolean;
@@ -276,7 +276,7 @@ function BoardPieceComponent(props: {
   return (
     <button
       type="button"
-      className="board-piece"
+      className="board-tile"
       disabled={disabled}
       onClick={onClick}
     >
