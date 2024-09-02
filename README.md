@@ -1,4 +1,4 @@
-## Introduction
+## Introductio
 #### Welcome to the ChessBots Onboarding Application!
 
 The goal of this application is to introduce prospective members to the code structure and tools that are used when working on the ChessBots project.
