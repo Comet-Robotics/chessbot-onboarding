@@ -4,5 +4,5 @@
 export enum ClientType {
     HOST = "host",
     CLIENT = "client",
-    SPECTATOR = "spectate",
+    SPECTATOR = "spectator",
 }

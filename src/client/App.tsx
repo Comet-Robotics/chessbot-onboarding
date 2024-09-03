@@ -320,8 +320,9 @@ function BoardTile(props: {
       className="board-tile"
       disabled={disabled}
       onClick={onClick}
+      style={{backgroundColor: piece === PieceType.X ? "pink" : piece === PieceType.O ? "lightblue" : undefined }}
     >
-      <p>{piece}</p>
+      <p>&nbsp;{piece !== PieceType.BLANK && piece}</p>
     </button>
   );
 }
