@@ -4,12 +4,10 @@ import { parseMessage } from "../../common/message/parse-message.ts";
 import {
     RegisterWebsocketMessage,
     GameInterruptedMessage,
-    GameStartedMessage,
     PlacementMessage,
 } from "../../common/message/messages.ts";
 import { clientManager, socketManager } from "./managers.ts";
-import { GameManager } from "./game-manager.ts";
-import { PieceType } from "../../common/game-types.ts";
+import { GamManager } from "./game-manager.ts";
 import { GameEngine } from "../../common/game-engine.ts"
 
 export let gameManager: GameManager | null = null;

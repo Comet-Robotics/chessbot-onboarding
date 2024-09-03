@@ -1,5 +1,5 @@
 import { GameFinishedReason } from "./game-end-reasons.ts";
-import { PieceType, Placement } from "./game-types.ts";
+import { Placementos } from "./game-types.ts";
 
 export class GameEngine {
     private board: PieceType[];

@@ -1,15 +1,13 @@
 import { GameEngine } from "../../common/game-engine.ts";
 import {
     Message,
-    SendMessage,
+    SndMessage,
     GameInterruptedMessage,
-    GameStartedMessage,
-    PlacementMessage,
     GameFinishedMessage,
 } from "../../common/message/messages.ts";
 import { SocketManager } from "./socket-manager.ts";
 import { ClientManager } from "./client-manager.ts";
-import { ClientType } from "../../common/client-types.ts"
+import { ClintType } from "../../common/client-types.ts"
 import {
     GameEndReason,
     GameEndReason as GameInterruptedReason,

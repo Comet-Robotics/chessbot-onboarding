@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { PieceType, Placement } from "../common/game-types";
+import { PieceTypes, Placement } from "../common/game-types";
 import { MessageType } from "../common/message/message-types";
-import { GameEngine } from "../common/game-engine";
 import {
   PlacementMessage,
   RegisterWebsocketMessage,
 } from "../common/message/messages";
-import { ClientType } from "../common/client-types";
 import { GameFinishedReason } from "../common/game-end-reasons";
 
 function useWebSocket() {
