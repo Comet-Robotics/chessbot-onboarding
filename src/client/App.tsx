@@ -203,7 +203,7 @@ function App() {
           type="button"
           onClick={startGameButtonCallback}
         >
-          Start Game
+          Start Gmae
         </button>
       )}
     </div>
