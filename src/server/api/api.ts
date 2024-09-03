@@ -51,15 +51,6 @@ apiRouter.get("/client-information", (req, res) => {
     });
 });
 
-//
-apiRouter.get("/game-state", (_, res) => {
-    if (gameManager === null) {
-        console.warn("Invalid attempt to fetch game state");
-        return res.status(400).send({ message: "No game is currently active" });
-    }
-    return res.status(200).send(gameManager.getGameState());
-});
-
 apiRouter.get("/board-state", (_, res) => {
     if (gameManager === null) {
         console.warn("Invalid attempt to fetch board state");
