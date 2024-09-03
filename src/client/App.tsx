@@ -276,7 +276,6 @@ function TicTacToe(props: TicTacToeProps) {
               key={`tile-${pieceIndex}`}
               piece={piece}
               disabled={
-                gameEnded ||
                 spectating ||
                 player !== localPlayer ||
                 piece !== PieceType.BLANK
