@@ -56,7 +56,9 @@ export class GameEngine {
      * @param offset - The column offset (determines which column to check).
      * @returns true if the columns has a win
      */
-    isColumnWin(pieceType: PieceType, offset: number): boolean {}
+    isColumnWin(pieceType: PieceType, offset: number): boolean {
+        return false;
+    }
 
     isDiagonalWin(pieceType: PieceType): boolean {
         const first = this.board[0] == pieceType;
