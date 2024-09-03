@@ -65,12 +65,16 @@ function App() {
   const { webSocket } = useWebSocket();
 
   const getInitialGameState = async () => {
-    const query = new URLSearchParams();
     const res = await fetch("/api/game-state");
 
     const json = (await res.json()) as InitialGameState;
+    setInitialGameState(null);
+    if (json.gameEndReason) {
+      setGameEndReason(json.gameEndReason)
+    } else {
+      setGameEndReason(null)
+    };
     setInitialGameState(json);
-    if (json.gameEndReason) setGameEndReason(json.gameEndReason);
   };
 
   // When this is run, a an api request is sent to the backend to start a game
@@ -137,6 +141,7 @@ function App() {
       if (parsedMessage.type == MessageType.GAME_STARTED) {
         const run = async () => {
           await getInitialGameState();
+          window.location.reload();
         };
     
         run();
@@ -158,6 +163,7 @@ function App() {
       }
       const hostPiece = PieceType.X;
       await startGame(hostPiece);
+      window.location.reload();
     }
 
   return (
