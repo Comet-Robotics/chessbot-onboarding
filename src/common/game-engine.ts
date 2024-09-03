@@ -37,6 +37,12 @@ export class GameEngine {
         }
     }
 
+    /**
+     * Returns if the input piece has a win in the specified row.
+     * @param pieceType - The piece type to check the wins for.
+     * @param offset - The row offset (determines which row to check).
+     * @returns true if the rows has a win
+     */
     isRowWin(pieceType: PieceType, offset: number): boolean {
         const first = this.board[offset*3] == pieceType;
         const second= this.board[1+(offset*3)] == pieceType;
@@ -44,12 +50,13 @@ export class GameEngine {
         return first && second && third;
     }
 
-    isColumnWin(pieceType: PieceType, offset: number): boolean {
-        const first = this.board[offset] == pieceType;
-        const second= this.board[3+offset] == pieceType;
-        const third = this.board[6+offset] == pieceType;
-        return first && second && third;
-    }
+    /**
+     * Returns if the input piece has a win in the specified column.
+     * @param pieceType - The piece type to check the wins for.
+     * @param offset - The column offset (determines which column to check).
+     * @returns true if the columns has a win
+     */
+    isColumnWin(pieceType: PieceType, offset: number): boolean {}
 
     isDiagonalWin(pieceType: PieceType): boolean {
         const first = this.board[0] == pieceType;
