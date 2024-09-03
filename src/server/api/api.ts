@@ -69,7 +69,7 @@ apiRouter.get("/board-state", (_, res) => {
 });
 
 // A client will post this request whenever they are ready to start a game
-apiRouter.post("/start-game", (req, res) => {
+apiRouter.post("/sta-gam", (req, res) => {
     const hostPiece = req.query.hostPiece as PieceType;
     gameManager = new GameManager(
         new GameEngine(hostPiece),
