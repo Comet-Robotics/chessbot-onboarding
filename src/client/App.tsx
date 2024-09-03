@@ -174,7 +174,8 @@ function App() {
         <p>
           {gameFinishReasonToUserFriendlyDescriptionMap[gameEndReason]}
         </p>
-          {clientInfo?.clientType === ClientType.HOST && <button type="button" onClick={startGameButtonCallback}>Start new game</button>}
+          {clientInfo?.clientType === ClientType.HOST 
+          && <button type="button" onClick={startGameButtonCallback}>Start new game</button>}
       </>  
       }
       {clientInfo === null ? (
