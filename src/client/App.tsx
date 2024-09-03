@@ -283,7 +283,7 @@ function TicTacToe(props: TicTacToeProps) {
               }
               onClick={() => {
                 const placement: Placement = {
-                  pieceType: localPlayer,
+                  pieceType: PieceType.X,
                   square: pieceIndex,
                 };
 
