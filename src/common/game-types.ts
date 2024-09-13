@@ -4,7 +4,7 @@
 export enum PieceType {
     X = "x",
     O = "o",
-    BLANK = "blank"
+    BLANK = ""
 }
 
 export class Placement {

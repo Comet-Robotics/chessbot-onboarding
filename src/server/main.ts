@@ -1,12 +1,15 @@
 import express, { RequestHandler, Express } from "express";
 import ViteExpress from "vite-express";
 import cookieParser from "cookie-parser";
-import { v4 as uuuuuuuuid } from "uuid";
-import { websocketHandler } from "./api/api.ts";
+import { v4 as uuid } from "uuid";
+import { apiRouter, websocketHandler } from "./api/api.ts";
 import expressWebSocket from "express-ws";
 import { clientManager } from "./api/managers.ts";
 
 const app = expressWebSocket(express()).app;
+
+app.use(express.json());
+app.use(cookieParser());
 
 // app.use() is something called a middleware. This gets run before an api requests get sent to the api
 app.use(express.json());
