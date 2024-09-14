@@ -1,13 +1,15 @@
 import { GameEngine } from "../../common/game-engine.ts";
 import {
     Message,
-    SndMessage,
+    SendMessage,
     GameInterruptedMessage,
     GameFinishedMessage,
+    GameStartedMessage,
+    PlacementMessage,
 } from "../../common/message/messages.ts";
 import { SocketManager } from "./socket-manager.ts";
 import { ClientManager } from "./client-manager.ts";
-import { ClintType } from "../../common/client-types.ts"
+import { ClientType } from "../../common/client-types.ts"
 import {
     GameEndReason,
     GameEndReason as GameInterruptedReason,
@@ -81,25 +83,26 @@ export class GameManager {
             );
         }
 
-        if (message instanceof PlacementMessage) {
-            if (this.game.getGameFinishedReason()) {
-              console.log("Not sending placement message because game is finished.", message.toJson())
-              return;
-            }
-            if (this.game.place(message.placement)) {
-                sendToOpponent(message);
-                const gameFinishedReason = this.game.getGameFinishedReason();
-                if (gameFinishedReason) {
-                    const gameFinishedMessage = new GameFinishedMessage(gameFinishedReason);
-                    sendToPlayer(gameFinishedMessage);
-                    sendToOpponent(gameFinishedMessage);
+            if (message instanceof PlacementMessage && !this.isGameEnded()) {
+                if (this.game.getGameFinishedReason()) {
+                    console.log("Not sending placement message because game is finished.", message.toJson())
+                    return;
                 }
+                if (this.game.place(message.placement)) {
+                    sendToOpponent(message);
+                    const gameFinishedReason = this.game.getGameFinishedReason();
+                    if (gameFinishedReason) {
+                        const gameFinishedMessage = new GameFinishedMessage(gameFinishedReason);
+                        sendToPlayer(gameFinishedMessage);
+                        sendToOpponent(gameFinishedMessage);
+                    }
+                }   
+            } else if (message instanceof GameInterruptedMessage) {
+                this.gameInterruptedReason = message.reason;
+                // propagate back to both sockets
+                sendToPlayer(message);
+                sendToOpponent(message);
             }
-        } else if (message instanceof GameInterruptedMessage) {
-            this.gameInterruptedReason = message.reason;
-            // propagate back to both sockets
-            sendToPlayer(message);
-            sendToOpponent(message);
-        }
+
     }
 }
