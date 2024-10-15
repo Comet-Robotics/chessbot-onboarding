@@ -5,10 +5,12 @@ import {
     RegisterWebsocketMessage,
     GameInterruptedMessage,
     PlacementMessage,
+    GameStartedMessage,
 } from "../../common/message/messages.ts";
 import { clientManager, socketManager } from "./managers.ts";
-import { GamManager } from "./game-manager.ts";
+import { GameManager } from "./game-manager.ts";
 import { GameEngine } from "../../common/game-engine.ts"
+import { PieceType } from "../../common/game-types.ts";
 
 export let gameManager: GameManager | null = null;
 
@@ -56,9 +58,15 @@ apiRouter.get("/board-state", (_, res) => {
     }
     return res.status(200).send(gameManager.getBoardState());
 });
-
+apiRouter.get("/game-state", (_, res) => {
+    if (gameManager === null) {
+        console.warn("Invalid attempt to fetch board state");
+        return res.status(400).send({ message: "No game is currently active" });
+    }
+    return res.status(200).send(gameManager.getBoardState());
+});
 // A client will post this request whenever they are ready to start a game
-apiRouter.post("/sta-gam", (req, res) => {
+apiRouter.post("/start-game", (req, res) => {
     const hostPiece = req.query.hostPiece as PieceType;
     gameManager = new GameManager(
         new GameEngine(hostPiece),

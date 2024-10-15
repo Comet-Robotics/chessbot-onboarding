@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { PieceTypes, Placement } from "../common/game-types";
-import { MessageType } from "../common/message/message-types";
+import { PieceType, Placement} from "../common/game-types";
+import { MessageType} from "../common/message/message-types";
+import { ClientType } from "../common/client-types.ts";
 import {
   PlacementMessage,
   RegisterWebsocketMessage,
 } from "../common/message/messages";
 import { GameFinishedReason } from "../common/game-end-reasons";
+import { GameEngine } from "../common/game-engine.ts";
 
 function useWebSocket() {
   const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
@@ -201,7 +203,7 @@ function App() {
           type="button"
           onClick={startGameButtonCallback}
         >
-          Start Gmae
+          Start Game
         </button>
       )}
     </div>
@@ -276,11 +278,12 @@ function TicTacToe(props: TicTacToeProps) {
               disabled={
                 spectating ||
                 player !== localPlayer ||
-                piece !== PieceType.BLANK
+                piece !== PieceType.BLANK ||
+                gameEnded
               }
               onClick={() => {
                 const placement: Placement = {
-                  pieceType: PieceType.X,
+                  pieceType: localPlayer,
                   square: pieceIndex,
                 };
 

@@ -1,8 +1,8 @@
 import express, { RequestHandler, Express } from "express";
 import ViteExpress from "vite-express";
 import cookieParser from "cookie-parser";
-import { v4 as uuuuuuuuid } from "uuid";
-import { websocketHandler } from "./api/api.ts";
+import { v4 as uuid } from "uuid";
+import { websocketHandler, apiRouter } from "./api/api.ts";
 import expressWebSocket from "express-ws";
 import { clientManager } from "./api/managers.ts";
 
